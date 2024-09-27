@@ -8,8 +8,7 @@ import { MapComponent } from "./map/map.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,NgxEchartsDirective],
-  imports: [RouterOutlet, MapComponent],
+  imports: [RouterOutlet,NgxEchartsDirective,MapComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers:[
@@ -72,4 +71,3 @@ export class AppComponent {
 }
 
 
-  title = 'ZMAI-Datathon-2024';}

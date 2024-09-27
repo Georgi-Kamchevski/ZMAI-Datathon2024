@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import * as L from 'leaflet';
 
 @Component({
@@ -8,7 +8,7 @@ import * as L from 'leaflet';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements OnInit {
   private map: any;
 
   // Array containing lat, lon pairs
@@ -31,6 +31,7 @@ export class MapComponent implements AfterViewInit {
       minZoom: 3,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
+  
     tiles.addTo(this.map);
 
     this.addMarkers();  // Call the function to add markers
@@ -53,15 +54,15 @@ export class MapComponent implements AfterViewInit {
       const lon = this.markerValues[i + 1];
 
       // Create a marker at the given lat, lon
-      L.marker([lat, lon], { icon: defaultIconWithoutShadow })
-        .addTo(this.map);
+      const marker = L.marker([lat, lon], { icon: defaultIconWithoutShadow });
+        marker.addTo(this.map);
     }
   }
 
   constructor() { }
 
   // Initialize the map after the view has been initialized
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.initMap();
   }
 }

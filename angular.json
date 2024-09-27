@@ -27,8 +27,7 @@
                 "input": "public"
               }
             ],
-            "styles": [              
-              "./node_modules/leaflet/dist/leaflet.css",
+            "styles": [
               "src/styles.css"
             ],
             "scripts": ["node_modules/bootstrap/dist/js/bootstrap.js"]
@@ -88,8 +87,7 @@
               }
             ],
             "styles": [
-              "src/styles.css",                            
-              "./node_modules/leaflet/dist/leaflet.css"            
+              "src/styles.css"          
             ],
             "scripts": []
           }
