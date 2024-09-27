@@ -4,4 +4,6 @@
   .search-form{
       border: 1px solid blue;
   }
-  
+  .offcanvas{
+    width: 700px;
+  }

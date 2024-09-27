@@ -1,7 +1,35 @@
 <div class="title text-center">
+  <h1>Datathon 2024 Ludilo</h1>
+</div>
+<div class="title text-center">
     <h1>Datathon 2024 Ludilo</h1>
 </div>
 <div class="container-fluid d-flex flex-row">
+  <div class="search-form col-md-4">
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit vero reprehenderit perspiciatis itaque expedita
+    nostrum nulla. Quae vel voluptas molestias pariatur ducimus saepe omnis praesentium exercitationem temporibus
+    perferendis, ipsam impedit quas ullam delectus magnam neque nihil eaque explicabo ipsa totam. Ullam, repellendus
+    animi voluptatibus tenetur fugiat explicabo libero culpa, rem saepe, dolor aut maxime ducimus! Hic perferendis
+    aut, doloribus facilis deserunt, vitae consequatur fugit blanditiis quibusdam dolore quisquam adipisci ipsa,
+    voluptates officia omnis natus nesciunt quis dignissimos iste. Cum, dolorum delectus dolor aspernatur nihil
+    iusto illum earum, officiis provident laborum, eligendi omnis accusamus vitae molestiae commodi? Est maxime
+    tenetur repellendus?
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum porro harum debitis expedita vel magni voluptatem,
+    dicta quia sed voluptatum tenetur architecto, doloremque nobis similique obcaecati adipisci sint illum animi.
+    Praesentium, sapiente iste ex provident non iusto explicabo unde libero. Illo, cum! Quos voluptatem natus mollitia
+    porro quaerat recusandae modi! Repellendus dolorum fuga, dignissimos ipsum velit quia porro optio nihil.
+    Consequuntur ad molestias cum mollitia voluptatum illo quis iste tempora fugit cupiditate corporis eveniet
+    asperiores, nesciunt cumque eligendi. Similique aperiam laboriosam exercitationem quas beatae architecto ducimus ad
+    itaque, eaque enim consequatur, vero, at quis tempore. Similique debitis beatae vel alias omnis libero ducimus,
+    quaerat quia fugiat cumque deleniti blanditiis odit, ipsa, error iure tenetur adipisci magni! Aut quibusdam vero
+    temporibus sapiente labore voluptatem magnam beatae recusandae doloribus enim eos molestias, ad ab, dolorum earum?
+    Odit reiciendis facilis iste nihil consequatur maxime itaque, ex aperiam molestias, repudiandae dolores inventore,
+    aut ipsum quasi eaque esse quis ducimus? Fugiat quisquam a distinctio, dicta tempora quae aut nulla doloribus, illo
+    dolorum sequi laudantium expedita optio quia molestiae vitae sit alias consectetur quibusdam voluptatem omnis magni
+    ullam. Optio minima, explicabo dolorum ipsum eveniet exercitationem necessitatibus iste facilis assumenda atque
+    excepturi, fugit laudantium praesentium ipsam. Voluptas.
+    <!-- <app-form></app-form> -->
+  </div>
     <div class="search-form col-md-4">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit vero reprehenderit perspiciatis itaque expedita
         nostrum nulla. Quae vel voluptas molestias pariatur ducimus saepe omnis praesentium exercitationem temporibus
@@ -15,6 +43,38 @@
     </div>
 
 
+  <div class="map col-md-8">
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis quaerat quisquam, praesentium possimus
+    doloremque in laboriosam quasi? Atque sapiente ex qui quidem unde et, sequi modi similique numquam. Officia
+    dignissimos veritatis itaque exercitationem, ad vero ea magni quod eveniet voluptatibus, asperiores tenetur,
+    optio temporibus voluptatem aperiam voluptas. Aperiam, dolore dolorum?
+    <!-- <app-map></app-map> -->
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+      aria-controls="offcanvasRight">БЕРОВО</button>
+  </div>
+
+
+  <div class="offcanvas offcanvas-end offcanvas-size-xl" tabindex="-1" id="offcanvasRight"
+    aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 id="offcanvasRightLabel">БЕРОВО</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <p>Берово — град во источниот дел на Република Македонија, кој е сместен под падините на Малешевските Планини, чии
+        општински граници се простираат на површина од 598 км2. Во негова близина се наоѓа и Беровското Езеро. Берово се
+        наоѓа 161 км од Скопје, 47 км од Струмица и 52 км од Кочани.
+      </p>
+      <div class="image d-flex flex-column align-items-center">
+        <img src="../assets/berovo-school.png" alt="Berovo-school picture" height="300px" width="500px">
+        <span>Основно училиште "Дедо Иљо Малешевски"</span>
+
+      </div>
+      <div class="charts">
+        <div echarts [options]="options" class="demo-chart">
+            
+        </div>
+      </div>
     <div class="map col-md-8">
         <!-- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis quaerat quisquam, praesentium possimus
         doloremque in laboriosam quasi? Atque sapiente ex qui quidem unde et, sequi modi similique numquam. Officia
@@ -22,4 +82,6 @@
         optio temporibus voluptatem aperiam voluptas. Aperiam, dolore dolorum? -->
         <app-map></app-map>
     </div>
+  </div>
+
 </div>
