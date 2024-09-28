@@ -1,11 +1,12 @@
 .map{
   margin-top: 35px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    height: 80vh;
   }
   .search-form{
-    background-color: #EDF2F4;
+    background-color: #e6e6e675;
     margin-top: 35px;
-      border: 1px solid blue;
+      /* border: 1px solid blue; */
   }
   .offcanvas{
     width: 900px;    

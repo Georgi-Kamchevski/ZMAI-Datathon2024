@@ -13,8 +13,15 @@ export class MapComponent implements OnInit {
 
   // Array containing lat, lon pairs
   private markerValues = [
-    41.707950780384465, 22.855144797486066, // Берово - ООУ „Дедо Иљо Малешевски“
-    41.7104071,22.8467131,
+    {coords:"41.707950780384465, 22.855144797486066",id:1,centralno:"x"},
+    
+     // Берово - ООУ „Дедо Иљо Малешевски“
+    {coords:"41.7369176, 22.8390488",id:2},
+    {coords:"41.7631614, 22.7766109",id:3},
+    {coords:"41.7097895, 22.7836551",id:4},
+    {coords:"41.7799433, 22.7413956",id:5},
+    {coords:"41.6738929, 22.8519488",id:6},
+    {coords:"41.5904433, 22.9185855",id:7,centralno:"x"},
   ];
 
   // Initialize the map
@@ -47,13 +54,13 @@ export class MapComponent implements OnInit {
       tooltipAnchor: [16, -28],
       // riseOnHover: true,
       shadowUrl: '',  // Remove shadow
-      
     });
 
     // Loop through the markerValues array, adding markers in pairs (lat, lon)
     for (let i = 0; i < this.markerValues.length; i += 2) {
-      const lat = this.markerValues[i];
-      const lon = this.markerValues[i + 1];
+      const coords = this.markerValues[i].coords.split(", ").map(Number);
+  const lat: number = coords[0];
+  const lon: number = coords[1];
 
       // Create a marker at the given lat, lon
       const marker = L.marker([lat, lon], { icon: defaultIconWithoutShadow });
@@ -62,32 +69,27 @@ export class MapComponent implements OnInit {
         const popup = L.popup({
           autoClose: true,
           closeOnClick: true,
-  
+          // autoPan:false,
         })
           .setLatLng(popLocation)
           .setContent('<p>Берово - ООУ „Дедо Иљо Малешевски</p>')
           .openOn(this.map);  // 'this' refers to the MapComponent's map instance
-      })
-  
+          this.map.setView([lat, lon], 18);
+        })
+      const coordsRad = this.markerValues[0].coords.split(", ").map(Number);
+      const latRad: number = coordsRad[0];
+      const lonRad: number = coordsRad[1];
+      const furthestSchool = 24000;
+      const circle = L.circle([latRad, lonRad], {
+        radius: furthestSchool, // Radius in meters
+        color: '#FDFFFC', // Optional: specify color
+        fillColor: '#FDFFFC', // Optional: specify fill color
+        fillOpacity: 0.1 // Optional: specify fill opacity
+      }).addTo(this.map);
         marker.addTo(this.map);
     }
-
-
-    const marker = L.marker([41.70654945554364, 22.853571009575017], { icon: defaultIconWithoutShadow });
-
-    marker.on('click',(e: any) => {  // Use an arrow function to retain 'this'
-
-      // ACTIVATE MODAL ON CLICK ON MARKER!!!!!!!!!
-
-      
-//       data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-// aria-controls="offcanvasRight"
-    })
-
-    marker.addTo(this.map);
+    }
     
-  }
-
   constructor() { }
 
   // Initialize the map after the view has been initialized

@@ -1,16 +1,36 @@
 .dataList {
     max-width: fit-content;
     overflow: hidden;
-    max-height: 10rem;
+    max-height: 25rem;
     list-style: none;
+    text-align: justify;
+    /* padding: 3px; */
 }
 
 .dataList:hover{
     overflow: auto;
+    overflow-x: hidden;
+    
 }
 
 .dataList li{
-    height: 2rem;
+    height: 4rem;   
+    background-color: #ffffff;
+    font-size: medium; 
+    margin-left: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    align-items: center;
+
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.dataList li:hover{
+
+  background-color: #ebe8e8;
+  /* border: rgba(0, 0, 0, 0.39) solid; */
 }
 
 ::-webkit-scrollbar {
