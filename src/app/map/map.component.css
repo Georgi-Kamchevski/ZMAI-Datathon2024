@@ -1,0 +1,32 @@
+#map {
+    height: 100%;
+    width: 100%;
+    /* float: right; */
+ }
+*{
+    border: none;
+}
+.kriminal{
+    position:relative;
+    height:50rem;
+    width: 90rem;
+}
+.map-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 30px;
+}
+.map-frame{
+    /* border: 2px solid black;*/
+    height: 100%; 
+}
+.berovoBtn{
+    background-color: #EF8354;    
+    color: black;
+}
+.berovoBtn:hover{
+    background-color: #EC7357;
+}
