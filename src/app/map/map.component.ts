@@ -17,43 +17,31 @@ import { LocationData } from '../modals/locationData'; // Import your model
 })
 export class MapComponent implements OnInit {
   private map: any;
+  private markerLayer: L.LayerGroup = L.layerGroup(); // Layer group for markers
   public filteredData: LocationData[] = [];
   options!: EChartsOption;
-  
 
   constructor(private dataService: DataService) {
-    // Get the signal from DataService
     const filteredDataSignal = this.dataService.getFilteredLocations();
    
-    // Create an effect to reactively update when the signal changes
     effect(() => {
-      this.filteredData = filteredDataSignal();  // Retrieve the filtered data from the signal
+      this.filteredData = filteredDataSignal();
       console.log('Filtered data in map component:', this.filteredData);
       
-      // After retrieving filtered data, update the map markers
       if (this.filteredData && this.filteredData.length > 0) {
         const coordsCent = this.filteredData[0].coordinates_centralno
         .split(",").map(Number);
-         let latCent: number = coordsCent[0];
-         let lonCent: number = coordsCent[1];
+        let latCent: number = coordsCent[0];
+        let lonCent: number = coordsCent[1];
 
-         this.map.setView([latCent, lonCent], 10);
+        this.map.setView([latCent, lonCent], 10);
 
-        this.addMarkers(); // Ensure you update the markers based on filtered data
+        this.addMarkers(); // Update the markers based on filtered data
       }
     });
-  }  // Inject DataService
+  }
 
-  
-
-  // Initialize the map
   private initMap(): void {
-
-    // const coordsCent = this.filteredData[0].coordinates_centralno
-    //     .split(",").map(Number);
-    //      let latCent: number = coordsCent[0];
-    //      let lonCent: number = coordsCent[1];
-
     this.map = L.map('map', {
       center: [41.707382506518876, 22.85278959464174],
       zoom: 14,
@@ -66,41 +54,46 @@ export class MapComponent implements OnInit {
     });
 
     tiles.addTo(this.map);
-   
-    this.addMarkers();  // Call the function to add markers
+    this.markerLayer.addTo(this.map); // Add marker layer to the map
   }
 
-  // Function to add markers to the map based on the filtered data
   private addMarkers(): void {
-
-    
+    // Clear existing markers
+    this.markerLayer.clearLayers();
 
     if (this.filteredData && this.filteredData.length) {
-      const defaultIconWithoutShadow = L.icon({
+      
+      const redIconWithoutShadow = L.icon({
         iconUrl: "../assets/pngwing.com.png",
-        iconSize: [50, 41],  
+        iconSize: [50, 41],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
         tooltipAnchor: [16, -28],
-        shadowUrl: '',  
+        shadowUrl: '',
       });
 
-      // Loop through the filteredData array to add markers dynamically
-
-      
+      const blueIconWithoutShadow = L.icon({
+        iconUrl: "../assets/blue_pin.pngwing.com.png",
+        iconSize: [50, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        tooltipAnchor: [16, -28],
+        shadowUrl: '',
+      });
 
       this.filteredData.forEach((location) => {
         const coords = location.coordinates_podracno
-        .split(",").map(Number);
+          .split(",").map(Number);
         const lat: number = coords[0];
         const lon: number = coords[1];
 
-        const coordsCent = this.filteredData[0].coordinates_centralno
-        .split(",").map(Number);
-         let latCent: number = coordsCent[0];
-         let lonCent: number = coordsCent[1];
-        
-        const marker = L.marker([lat, lon], { icon: defaultIconWithoutShadow });
+        var marker;
+        if(location.distance < 4){
+          marker = L.marker([lat, lon], { icon: blueIconWithoutShadow });
+        }
+        else{
+          marker = L.marker([lat, lon], { icon: redIconWithoutShadow });
+        }
         marker.on('click', (e: any) => {
           const popLocation = new L.LatLng(lat, lon);
           const popup = L.popup({
@@ -120,37 +113,7 @@ export class MapComponent implements OnInit {
           }
         });
 
-        const markerCent = L.marker([latCent, lonCent], { icon: defaultIconWithoutShadow });
-        markerCent.on('click', (e: any) => {
-          const popLocation = new L.LatLng(latCent, lonCent);
-          const popup = L.popup({
-            autoClose: true,
-            closeOnClick: true,
-          })
-          .setLatLng(popLocation)
-          .setContent(`<p>${location.osnovno_ucilishte}</p>`)
-          .openOn(this.map);
-
-          this.map.setView([latCent, lonCent], 18);
-
-          const offcanvasElement = document.getElementById('offcanvasRight');
-          if (offcanvasElement) {
-            const bsOffcanvas = new Offcanvas(offcanvasElement);
-            bsOffcanvas.show();
-          }
-        });
-
-      const circle = L.circle([latCent, lonCent], {
-        radius: this.filteredData[0].distance*1000, // Radius in meters
-        color: '#FDFFFC', // Optional: specify color
-        fillColor: '#FDFFFC', // Optional: specify fill color
-        fillOpacity: 0.1 // Optional: specify fill opacity
-      }).addTo(this.map);
-
-      
-        marker.addTo(this.map);
-        markerCent.addTo(this.map);
-
+        this.markerLayer.addLayer(marker); // Add marker to markerLayer
       });
     }
   }
