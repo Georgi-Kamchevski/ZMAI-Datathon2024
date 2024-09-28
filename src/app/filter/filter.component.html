@@ -18,8 +18,9 @@
                     class="form-check-input"
                     style="cursor: pointer;"
                     name="filterDataType"
-                    [value]="filterDataType.opshtina"
+                    [value]="filterDataType.filteredDataTypeId"
                     [checked]="isItemSelected(filterDataType.filteredDataTypeId)"
+                    (change)="handleSelection($event)"
                   />
                   <!-- (change)="onCheckChange($event)"
                   [checked]="isUserSelected(dataType.filteredDataTypeId)" -->
