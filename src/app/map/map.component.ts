@@ -1,4 +1,6 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { Offcanvas } from 'bootstrap'; // Import Offcanvas
 import * as L from 'leaflet';
 
 @Component({
@@ -75,6 +77,13 @@ export class MapComponent implements OnInit {
           .setContent('<p>Берово - ООУ „Дедо Иљо Малешевски</p>')
           .openOn(this.map);  // 'this' refers to the MapComponent's map instance
           this.map.setView([lat, lon], 18);
+
+          const offcanvasElement = document.getElementById('offcanvasRight');
+        if (offcanvasElement) {
+          const bsOffcanvas = new Offcanvas(offcanvasElement); // Use Offcanvas from Bootstrap
+          bsOffcanvas.show();
+        }
+
         })
       const coordsRad = this.markerValues[0].coords.split(", ").map(Number);
       const latRad: number = coordsRad[0];
