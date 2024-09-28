@@ -159,81 +159,117 @@ export class MapComponent implements OnInit {
     this.initMap();
 
     // Use an effect to listen to changes in the filteredLocationData signal
-    
+      //Hard-coding the data
+      const xAxisData = ['2018 година','2019 година','2020 година','2021 година','2022 година','2023 година'];
+     
+      const dataIgrade = [93,86,91,92,67,84];
+      const dataIIgrade = [84,89,86,92,92,66];
+      const dataIIIgrade = [95,80,89,85,89,90];
+      const dataIVgrade = [101,93,79,86,84,87];
+      const dataVgrade = [86,98,91,78,84,85];
+      const dataVIgrade = [91,82,93,91,75,82];
+      const dataVIIgrade = [101,86,80,91,88,74];
+      const dataVIIIgrade = [79,102,83,78,87,84];
+      const dataIXgrade = [108,75,100,83,76,84];
+      
+     
+      //Берово,2018,,,,,,,,,101,79,108,86
+      //Берово,2019,,,,,,,,,86,102,75,91
+      //Берово,2020,,,,,,,,,80,83,100,93
+      //Берово,2021,,,,,,,,,91,78,83,75
+      //Берово,2022,,,,,,,,,88,87,76,91
+      //Берово,2023,,,,,,,,,74,84,84,
 
-    // Example chart data (You can keep the chart logic as is)
-    const xAxisData = [];
-    const data2019 = [];
-    const data2020 = [];
-    const data2021 = [];
-    const data2022 = [];
-    const data2023 = [];
-    const data2024 = [];
 
-    for (let i = 2018; i < 2024; i++) {
-      xAxisData.push(i + ' година');
-      data2019.push((Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5);
-      data2020.push((Math.cos(i / 5) * (i / 5 - 10) + i / 6) * 5);
-      data2021.push((Math.cos(i / 3) * (i / 3 - 10) + i / 6) * 5);
-      data2022.push((Math.cos(i / 3) * (i / 3 - 10) + i / 6) * 5);
-      data2023.push((Math.cos(i) * (i - 10) + i / 6) * 5);
-      data2024.push((Math.cos(i) * (i - 10) + i / 6) * 5);
-    }
 
-    this.options = {
-      legend: {
-        data: ['2019', '2020', '2021', '2022', '2023', '2024'],
-        align: 'left',
-      },
-      tooltip: {},
-      xAxis: {
-        data: xAxisData,
-        silent: false,
-        splitLine: {
-          show: false,
+
+      // for (let i = 2018; i <= 2024; i++) {
+      //   xAxisData.push(i +' година');
+      //   data2019.push((Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5);
+      //   data2020.push((Math.cos(i / 5) * (i / 5 - 10) + i / 6) * 5);
+      //   data2021.push((Math.cos(i / 3) * (i / 3 - 10) + i / 6) * 5);
+      //   data2022.push((Math.cos(i / 3) * (i / 3 - 10) + i / 6) * 5);
+      //   data2023.push((Math.cos(i) * (i - 10) + i / 6) * 5);
+      //   data2024.push((Math.cos(i) * (i - 10) + i / 6) * 5);
+      // }
+  
+      
+      //Options for charts
+      this.options = {
+        legend: {
+          data: ['dataIgrade','dataIIgrade','dataIIIgrade','dataIVgrade','dataVgrade','dataVIgrade','dataVIIgrade','dataVIIIgrade','dataIXgrade'],
+          align: 'left',
         },
-      },
-      yAxis: {},
-      series: [
-        {
-          name: '2019',
-          type: 'line',
-          data: data2019,
-          animationDelay: idx => idx * 10,
+        tooltip: {},
+        xAxis: {
+          data: xAxisData,
+          silent: false,
+          splitLine: {
+            show: false,
+          },
         },
-        {
-          name: '2020',
-          type: 'line',
-          data: data2020,
-          animationDelay: idx => idx * 10 + 100,
-        },
-        {
-          name: '2021',
-          type: 'line',
-          data: data2021,
-          animationDelay: idx => idx * 10 + 100,
-        },
-        {
-          name: '2022',
-          type: 'line',
-          data: data2022,
-          animationDelay: idx => idx * 10 + 100,
-        },
-        {
-          name: '2023',
-          type: 'line',
-          data: data2023,
-          animationDelay: idx => idx * 10 + 100,
-        },
-        {
-          name: '2024',
-          type: 'line',
-          data: data2024,
-          animationDelay: idx => idx * 10 + 100,
-        },
-      ],
-      animationEasing: 'elasticOut',
-      animationDelayUpdate: idx => idx * 5,
-    };
+        yAxis: {},
+        series: [
+          {
+            name: 'dataIgrade',
+            type: 'line',
+            data: dataIgrade,
+            animationDelay: idx => idx * 10,
+          },
+          {
+            name: 'dataIIgrade',
+            type: 'line',
+            data: dataIIgrade,
+            animationDelay: idx => idx * 10 + 100,
+          },
+          {
+            name: 'dataIIIgrade',
+            type: 'line',
+            data: dataIIIgrade,
+            animationDelay: idx => idx * 10 + 100,
+          },
+     
+          {
+            name: 'dataIVgrade',
+            type: 'line',
+            data: dataIVgrade,
+            animationDelay: idx => idx * 10 + 100,
+          },
+          {
+            name: 'dataVgrade',
+            type: 'line',
+            data: dataVgrade,
+            animationDelay: idx => idx * 10 + 100,
+          },
+          {
+            name: 'dataVIgrade',
+            type: 'line',
+            data: dataVIgrade,
+            animationDelay: idx => idx * 10 + 100,
+          },
+          {
+            name: 'dataVIIgrade',
+            type: 'line',
+            data: dataVIIgrade,
+            animationDelay: idx => idx * 10 + 100,
+          },
+          {
+            name: 'dataVIIIgrade',
+            type: 'line',
+            data: dataVIIIgrade,
+            animationDelay: idx => idx * 10 + 100,
+          },
+          {
+            name: 'dataIXgrade',
+            type: 'line',
+            data: dataIXgrade,
+            animationDelay: idx => idx * 10 + 100,
+          },
+        ],
+        animationEasing: 'elasticOut',
+        animationDelayUpdate: idx => idx * 5,
+      };
+
   }
-}
+
+    };
