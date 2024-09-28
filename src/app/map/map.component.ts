@@ -1,15 +1,23 @@
 import { Component,  OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import {NgxEchartsDirective, provideEcharts} from 'ngx-echarts'
+import type { EChartsOption } from 'echarts';
+import csvParser from 'csv-parser';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [],
+  imports: [NgxEchartsDirective],
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
+  providers:[
+    provideEcharts()
+  ]
 })
 export class MapComponent implements OnInit {
   private map: any;
+
+  options!: EChartsOption;
 
   // Array containing lat, lon pairs
   private markerValues = [
@@ -95,5 +103,86 @@ export class MapComponent implements OnInit {
   // Initialize the map after the view has been initialized
   ngOnInit(): void {
     this.initMap();
+      //Hard-coding the data
+      const xAxisData = [];
+      const data2019 = [];
+      const data2020 = [];
+      const data2021 = [];
+      const data2022 = [];
+      const data2023 = [];
+      const data2024 = [];
+  
+      for (let i = 2018; i < 2024; i++) {
+        xAxisData.push(i +' година');
+        data2019.push((Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5);
+        data2020.push((Math.cos(i / 5) * (i / 5 - 10) + i / 6) * 5);
+        data2021.push((Math.cos(i / 3) * (i / 3 - 10) + i / 6) * 5);
+        data2022.push((Math.cos(i / 3) * (i / 3 - 10) + i / 6) * 5);
+        data2023.push((Math.cos(i) * (i - 10) + i / 6) * 5);
+        data2024.push((Math.cos(i) * (i - 10) + i / 6) * 5);
+      }
+  
+      
+      //Options for charts
+      this.options = {
+        legend: {
+          data: ['2019', '2020','2021','2022','2023','2024'],
+          align: 'left',
+        },
+        tooltip: {},
+        xAxis: {
+          data: xAxisData,
+          silent: false,
+          splitLine: {
+            show: false,
+          },
+        },
+        yAxis: {},
+        series: [
+          {
+            name: '2019',
+            type: 'line',
+            data: data2019,
+            animationDelay: idx => idx * 10,
+          },
+          {
+            name: '2020',
+            type: 'line',
+            data: data2020,
+            animationDelay: idx => idx * 10 + 100,
+          },
+          {
+            name: '2021',
+            type: 'line',
+            data: data2021,
+            animationDelay: idx => idx * 10 + 100,
+          },
+          {
+            name: '2022',
+            type: 'line',
+            data: data2022,
+            animationDelay: idx => idx * 10 + 100,
+          },
+          {
+            name: '2023',
+            type: 'line',
+            data: data2023,
+            animationDelay: idx => idx * 10 + 100,
+          },
+          {
+            name: '2024',
+            type: 'line',
+            data: data2024,
+            animationDelay: idx => idx * 10 + 100,
+          },
+        ],
+        animationEasing: 'elasticOut',
+        animationDelayUpdate: idx => idx * 5,
+      };
+
   }
+
+
+
+ 
 }
