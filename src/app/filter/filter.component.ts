@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import Fuse from "fuse.js";
 import { FilterDataType } from '../modals/filterDataType';
@@ -21,7 +21,24 @@ export class FilterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dataservice: DataService
-  ) {}
+  ) {
+    const locations = this.dataservice.getLocations();
+
+    effect(() =>{
+      this.dataList = locations().map((location, index) => 
+      {
+        return {
+          filteredDataTypeId: index,
+          opshtina: location.opshtina,
+          naseleno_mesto: location.naseleno_mesto,
+          osnovno_ucilishte: location.osnovno_ucilishte,
+        } as FilterDataType;
+      }
+      );
+      this.filteredSuggestions = this.dataList;
+      // console.log(this.dataList);
+    });
+  }
 
   async ngOnInit() {
     this.initializeForm();
@@ -88,9 +105,10 @@ export class FilterComponent implements OnInit {
 
     const data = this.dataList.find(filterDataType => filterDataType.filteredDataTypeId === this.selectedKey);
 
-    console.log(data?.opshtina);
+    // console.log(data?.opshtina);
     if(data){
-      this.dataservice.loadCSV(data!.opshtina).subscribe();
+      // this.dataservice.loadCSV(data!.opshtina).subscribe();
+      this.dataservice.setLocations(data!.opshtina);
     }
   }
 
@@ -126,10 +144,12 @@ handleFilterChange() {
   // Normalize the dataList for search but preserve original data
   const normalizedDataList = this.dataList.map(item => ({
     original: item,  // Keep the original data for returning
-    opshtina: this.normalizeCyrillic(item.opshtina),
-    naseleno_mesto: this.normalizeCyrillic(item.naseleno_mesto),
-    osnovno_ucilishte: this.normalizeCyrillic(item.osnovno_ucilishte),
+    opshtina: !!item.opshtina ? this.normalizeCyrillic(item.opshtina) : '',
+    naseleno_mesto: !!item.naseleno_mesto ? this.normalizeCyrillic(item.naseleno_mesto) : '',
+    osnovno_ucilishte: !!item.osnovno_ucilishte ? this.normalizeCyrillic(item.osnovno_ucilishte) : '',
   }));
+  // console.log(this.dataList);
+  // console.log(normalizedDataList);
 
   // Initialize Fuse.js with normalized data
   const fuse = new Fuse(normalizedDataList, options);
@@ -149,9 +169,9 @@ handleFilterChange() {
     // Return results in Latin (normalized)
     this.filteredSuggestions = results.map(result => ({
       ...result.data,
-      opshtina: this.normalizeCyrillic(result.data.opshtina),
-      naseleno_mesto: this.normalizeCyrillic(result.data.naseleno_mesto),
-      osnovno_ucilishte: this.normalizeCyrillic(result.data.osnovno_ucilishte),
+      opshtina: !!result.data.opshtina ? this.normalizeCyrillic(result.data.opshtina) : '',
+    naseleno_mesto: !!result.data.naseleno_mesto ? this.normalizeCyrillic(result.data.naseleno_mesto) : '',
+    osnovno_ucilishte: !!result.data.osnovno_ucilishte ? this.normalizeCyrillic(result.data.osnovno_ucilishte) : '',
     }));
   }
 }
