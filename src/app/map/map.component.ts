@@ -121,6 +121,13 @@ export class MapComponent implements OnInit {
           }
         });
 
+      const circle = L.circle([latCent, lonCent], {
+        radius: this.filteredData[0].distance*1000, // Radius in meters
+        color: '#FDFFFC', // Optional: specify color
+        fillColor: '#FDFFFC', // Optional: specify fill color
+        fillOpacity: 0.1 // Optional: specify fill opacity
+      }).addTo(this.map);
+
         marker.addTo(this.map);
         markerCent.addTo(this.map);
 
