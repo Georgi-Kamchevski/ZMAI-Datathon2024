@@ -24,21 +24,36 @@ export class MapComponent implements OnInit {
   constructor(private dataService: DataService) {
     // Get the signal from DataService
     const filteredDataSignal = this.dataService.getFilteredLocationData() ;
-
+   
     // Create an effect to reactively update when the signal changes
     effect(() => {
       this.filteredData = filteredDataSignal();  // Retrieve the filtered data from the signal
       console.log('Filtered data in map component:', this.filteredData);
-
+      
       // After retrieving filtered data, update the map markers
       if (this.filteredData && this.filteredData.length > 0) {
+        const coordsCent = this.filteredData[0].coordinates_centralno
+        .split(",").map(Number);
+         let latCent: number = coordsCent[0];
+         let lonCent: number = coordsCent[1];
+
+         this.map.setView([latCent, lonCent], 10);
+
         this.addMarkers(); // Ensure you update the markers based on filtered data
       }
     });
   }  // Inject DataService
 
+  
+
   // Initialize the map
   private initMap(): void {
+
+    // const coordsCent = this.filteredData[0].coordinates_centralno
+    //     .split(",").map(Number);
+    //      let latCent: number = coordsCent[0];
+    //      let lonCent: number = coordsCent[1];
+
     this.map = L.map('map', {
       center: [41.707382506518876, 22.85278959464174],
       zoom: 14,
@@ -51,11 +66,15 @@ export class MapComponent implements OnInit {
     });
 
     tiles.addTo(this.map);
+   
     this.addMarkers();  // Call the function to add markers
   }
 
   // Function to add markers to the map based on the filtered data
   private addMarkers(): void {
+
+    
+
     if (this.filteredData && this.filteredData.length) {
       const defaultIconWithoutShadow = L.icon({
         iconUrl: "../assets/pngwing.com.png",
@@ -128,6 +147,7 @@ export class MapComponent implements OnInit {
         fillOpacity: 0.1 // Optional: specify fill opacity
       }).addTo(this.map);
 
+      
         marker.addTo(this.map);
         markerCent.addTo(this.map);
 

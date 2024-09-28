@@ -45,25 +45,25 @@ export class FilterComponent implements OnInit {
       },
       {
         filteredDataTypeId: 2,
-        opshtina: 'Берово',
+        opshtina: 'Аеродром',
         naseleno_mesto: 'с. Будинарци',
         osnovno_ucilishte: 'Дедо Иљо Малешевски'
       },
       {
         filteredDataTypeId: 3,
-        opshtina: 'Берово',
+        opshtina: 'Карпош',
         naseleno_mesto: 'с. Будинарци',
         osnovno_ucilishte: 'Дедо Иљо Малешевски'
       },
       {
         filteredDataTypeId: 4,
-        opshtina: 'Берово',
+        opshtina: 'Битола',
         naseleno_mesto: 'с. Будинарци',
         osnovno_ucilishte: 'Дедо Иљо Малешевски'
       },
       {
         filteredDataTypeId: 5,
-        opshtina: 'Берово',
+        opshtina: 'Охрид',
         naseleno_mesto: 'с. Будинарци',
         osnovno_ucilishte: 'Дедо Иљо Малешевски'
       }
