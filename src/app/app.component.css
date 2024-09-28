@@ -1,9 +1,19 @@
 .map{
+  margin-top: 35px;
     border: 1px solid red;
   }
   .search-form{
+    background-color: #EDF2F4;
+    margin-top: 35px;
       border: 1px solid blue;
   }
   .offcanvas{
-    width: 700px;
+    width: 900px;    
   }
+.title{
+  height: 60px;
+  background-color: #2B2D42;
+  padding-left: 50px;
+  color: #EDF2F4;
+  text-align: left;
+}

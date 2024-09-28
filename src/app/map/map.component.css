@@ -9,7 +9,7 @@
 .kriminal{
     position:relative;
     height:50rem;
-    width: 50rem;
+    width: 90rem;
 }
 .map-container{
     position: absolute;
@@ -22,4 +22,11 @@
 .map-frame{
     /* border: 2px solid black;*/
     height: 100%; 
+}
+.berovoBtn{
+    background-color: #EF8354;    
+    color: black;
+}
+.berovoBtn:hover{
+    background-color: #EC7357;
 }
