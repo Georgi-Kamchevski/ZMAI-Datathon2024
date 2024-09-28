@@ -2,7 +2,6 @@ import { Component,  OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import {NgxEchartsDirective, provideEcharts} from 'ngx-echarts'
 import type { EChartsOption } from 'echarts';
-import csvParser from 'csv-parser';
 
 @Component({
   selector: 'app-map',
