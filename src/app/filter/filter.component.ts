@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import Fuse from "fuse.js";
 import { FilterDataType } from '../modals/filterDataType';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-filter',
@@ -19,6 +20,7 @@ export class FilterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private dataservice: DataService
   ) {}
 
   async ngOnInit() {
@@ -72,16 +74,31 @@ export class FilterComponent implements OnInit {
     this.filteredSuggestions = this.dataList;
   }
 
-  handleSelection(selectedFilterType: FilterDataType) {
-    this.selectedKey = selectedFilterType.filteredDataTypeId;
-    // fetch data from service
+  handleSelection(event: any) {
+    const formArray: FormArray = this.filterForm.get('filterDataType') as FormArray;
+
+    //clear checked elements
+    formArray.controls.forEach((ctrl: any, i) => {
+      formArray.removeAt(i);
+    });
+
+    formArray.push(new FormControl(+event.target.value));
+
+    this.selectedKey = +event.target.value;
+
+    const data = this.dataList.find(filterDataType => filterDataType.filteredDataTypeId === this.selectedKey);
+
+    console.log(data?.opshtina);
+    if(data){
+      this.dataservice.loadCSV(data!.opshtina).subscribe();
+    }
   }
 
   // Filter the dataList based on the input value
  // Filter the dataList based on the input value
 handleFilterChange() {
   let input = this.filterForm.controls['filter'].value;
-  console.log(input);
+  // console.log(input);
 
   if (input.length === 0) {
     this.filteredSuggestions = this.dataList; // Return original list when input is empty
