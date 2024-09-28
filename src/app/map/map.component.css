@@ -17,7 +17,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    margin: 10px;
+    
 }
 .map-frame{
     /* border: 2px solid black;*/
@@ -29,4 +29,11 @@
 }
 .berovoBtn:hover{
     background-color: #EC7357;
+}
+.offcanvas{
+    width:1000px;
+}
+.demo-chart{
+    height: 400px;
+    width: 800px;
 }
