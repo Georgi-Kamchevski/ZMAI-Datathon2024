@@ -10,6 +10,7 @@
     position:relative;
     height:100%;
     width: 100%;
+    border-radius: 30px;
 }
 .map-container{
     position: absolute;
@@ -17,7 +18,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    margin: 10px;
+    /* margin: 10px; */
 }
 .map-frame{
     /* border: 2px solid black;*/

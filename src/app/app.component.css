@@ -1,6 +1,7 @@
 .map{
   margin-top: 35px;
     border: 1px solid red;
+    height: 80vh;
   }
   .search-form{
     background-color: #EDF2F4;
