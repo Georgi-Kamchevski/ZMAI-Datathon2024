@@ -17,6 +17,10 @@ export class DataService {
     return this.locations;
   }
 
+  public getFilteredLocations(){
+    return this.filteredLocationData;
+  }
+
   setLocations(opshtinaFilter: string) {
 // Filter locationData based on opshtinaFilter
 const filteredData = this.locations().filter((location : LocationData) => location.opshtina === opshtinaFilter);
