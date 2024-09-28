@@ -23,7 +23,7 @@ export class MapComponent implements OnInit {
 
   constructor(private dataService: DataService) {
     // Get the signal from DataService
-    const filteredDataSignal = this.dataService.getFilteredLocationData() ;
+    const filteredDataSignal = this.dataService.getLocations();
    
     // Create an effect to reactively update when the signal changes
     effect(() => {
