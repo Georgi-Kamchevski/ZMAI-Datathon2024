@@ -1,0 +1,37 @@
+<div class="row p-2">
+    <form [formGroup]="filterForm">
+      <div class="form-group">
+        <input
+          class="form-control mb-2"
+          type="text"
+          formControlName="filter"
+          placeholder="Пребарај Општина/Училиште"
+          (input)="handleFilterChange()"
+        />
+      </div>
+      <div class="row">
+        <ul class="row d-flex flex-row gap-2 dataList" formArrayName="filterDataType">
+            @for (filterDataType of filteredSuggestions; track filterDataType.filteredDataTypeId){
+                <li class="col-12 dataList-item">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    style="cursor: pointer;"
+                    name="filterDataType"
+                    [value]="filterDataType.opshtina"
+                    [checked]="isItemSelected(filterDataType.filteredDataTypeId)"
+                  />
+                  <!-- (change)="onCheckChange($event)"
+                  [checked]="isUserSelected(dataType.filteredDataTypeId)" -->
+                  <span>
+                    {{ filterDataType.opshtina }}
+                    {{ filterDataType.naseleno_mesto }}
+                    {{ filterDataType.osnovno_ucilishte }}
+                  </span>
+                </li>
+            }
+        </ul>
+      </div>
+    </form>
+  </div>
+  
