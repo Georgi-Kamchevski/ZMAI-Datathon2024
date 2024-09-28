@@ -8,8 +8,8 @@
 }
 .kriminal{
     position:relative;
-    height:50rem;
-    width: 90rem;
+    height:100%;
+    width: 100%;
 }
 .map-container{
     position: absolute;
@@ -17,7 +17,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    margin: 30px;
+    margin: 10px;
 }
 .map-frame{
     /* border: 2px solid black;*/
