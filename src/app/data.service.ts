@@ -10,11 +10,25 @@ import { LocationData } from './modals/locationData';
 })
 export class DataService {
   private locationDataUrl = 'assets/dataSets/osnovno_koordinati.csv'; 
-  public filteredLocationData = signal(null);
+  public filteredLocationData = signal<LocationData[]>([]);
+  public locations = signal<LocationData[]>([]);
+
+  public getLocations(){
+    return this.locations;
+  }
+
+  setLocations(opshtinaFilter: string) {
+// Filter locationData based on opshtinaFilter
+const filteredData = this.locations().filter((location : LocationData) => location.opshtina === opshtinaFilter);
+
+// console.log('Parsed location data:', filteredData);
+
+filteredData!! ? this.filteredLocationData.set(filteredData) : this.filteredLocationData.set([]);
+  }
 
   constructor(private http: HttpClient) {}
 
-  loadCSV(opshtinaFilter: string): Observable<LocationData[]> {
+  loadCSV(): Observable<LocationData[]> {
     // console.log('started loading CSV file');
     return this.http.get(this.locationDataUrl, { responseType: 'text' }).pipe(
       map((csvData: string) => {
@@ -42,12 +56,8 @@ export class DataService {
           } as LocationData;
         });
   
-        // Filter locationData based on opshtinaFilter
-        const filteredData = locationData.filter((location : LocationData) => location.opshtina === opshtinaFilter);
-
-        console.log('Parsed location data:', filteredData);
-        this.filteredLocationData.set(filteredData);
-        
+        // this.filteredLocationData.set(filteredData);
+        this.locations.set(locationData);
         return locationData;
       })
     );
