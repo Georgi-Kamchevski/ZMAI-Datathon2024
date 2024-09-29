@@ -5,7 +5,8 @@ import * as L from 'leaflet';
 import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
 import type { EChartsOption } from 'echarts';
 import { DataService } from '../data.service'; // Import your DataService
-import { LocationData } from '../modals/locationData'; // Import your model
+import { LocationData } from '../modals/locationData';
+import { OsnovnoModalComponent } from "../osnovno-modal/osnovno-modal.component"; // Import your model
 import { modelOpshtini } from '../modals/modelOpshtini';
 import { PieChartComponent } from "../pie-chart/pie-chart.component";
 import { LineZapishaniZavrsheniComponent } from "../line-zapishani-zavrsheni/line-zapishani-zavrsheni.component";
@@ -14,7 +15,7 @@ import { StackedBarZapishaniZavrsheniComponent } from "../stacked-bar-zapishani-
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [NgxEchartsDirective, PieChartComponent, LineZapishaniZavrsheniComponent, StackedBarZapishaniZavrsheniComponent],
+  imports: [NgxEchartsDirective, PieChartComponent, LineZapishaniZavrsheniComponent, StackedBarZapishaniZavrsheniComponent, OsnovnoModalComponent],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
   providers: [provideEcharts()]
@@ -110,16 +111,17 @@ export class MapComponent implements OnInit {
           marker = L.marker([lat, lon], { icon: redIconWithoutShadow });
         }
         marker.on('click', (e: any) => {
-          const popLocation = new L.LatLng(lat, lon);
-          const popup = L.popup({
-            autoClose: true,
-            closeOnClick: true,
-          })
-          .setLatLng(popLocation)
-          .setContent(`<p>${location.osnovno_ucilishte}</p>`)
-          .openOn(this.map);
+          // const popLocation = new L.LatLng(lat, lon);
+          // const popup = L.popup({
+          //   autoClose: true,
+          //   closeOnClick: true,
+          // })
+          // .setLatLng(popLocation)
+          // .setContent(`<p>${location.osnovno_ucilishte}</p>`)
+          // .openOn(this.map);
 
-          this.map.setView([lat, lon], 18);
+          // this.map.setView([lat, lon], 18);
+          this.dataService.selectedLocation.set(location);
 
           const offcanvasElement = document.getElementById('offcanvasRight');
           if (offcanvasElement) {
