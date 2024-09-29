@@ -1,31 +1,47 @@
 @if (selectedLocation){
-    <div class="col-12 d-flex flex-column">
-        <div>
-            <img src="" alt="grb">
-        </div>
-        <h5 class="text-center col-12">{{selectedLocation.opshtina}}</h5>
-        <h5 class="text-center col-12">{{selectedLocation.osnovno_ucilishte}}</h5>
-        <div>
-            <img src="" alt="osnovno">
-        </div>
+<div class="col-12 d-flex flex-column align-items-center">
+    <div>
+        @if (selectedLocation.opshtina=='Куманово') {
+        <img src="../../assets/Kumanovo-grb.png" alt="grb" height="200" width="150">
+        }
+        @if (selectedLocation.opshtina=='Берово') {
+        <img src="../../assets/Berovo-grb.png" alt="grb" height="200" width="150">
+        }
+        @if (selectedLocation.opshtina=='Битола') {
+        <img src="../../assets/Bitola-grb.png" alt="grb" height="200" width="150">
+        }
     </div>
-   
+    <h1 class="text-center col-12" style="font-weight: bold;">{{selectedLocation.opshtina}}</h1>
+    <h5 class="text-center col-12">{{selectedLocation.osnovno_ucilishte}}</h5>
+    <div>
+        @if (selectedLocation.opshtina=='Куманово') {
+        <img src="../../assets/kumanovo-school.jpg" alt="osnovno"  height="400" width="850" style="margin-bottom: 2rem;">
+        }
+        @if (selectedLocation.opshtina=='Берово') {
+        <img src="../../assets/berovo-school.png" alt="osnovno"  height="400" width="850" style="margin-bottom: 2rem;">
+        }
+        @if (selectedLocation.opshtina=='Битола') {
+        <img src="../../assets/bitola-school.jpg" alt="osnovno" height="400" width="850" style="margin-bottom: 2rem;">
+        }
+    </div>
+</div>
+
 }
 @else {
-    <div>
-        <h5 id="offcanvasRightLabel">БЕРОВО</h5>
-        <p>Берово — град во источниот дел на Република Македонија, кој е сместен под падините на Малешевските
-            Планини,
-            чии
-            општински граници се простираат на површина од 598 км2. Во негова близина се наоѓа и Беровското
-            Езеро.
-            Берово се
-            наоѓа 161 км од Скопје, 47 км од Струмица и 52 км од Кочани.
-        </p>
-    
-    </div>
-    <div class="image d-flex flex-column align-items-center col-6">
-        <img src="../assets/berovo-school.png" alt="Berovo-school picture" height="150px" width="250px">
-        <span>Основно училиште "Дедо Иљо Малешевски"</span>
-    </div>
+<div>
+    <h5 id="offcanvasRightLabel">БЕРОВО</h5>
+    <p>Берово — град во источниот дел на Република Македонија, кој е сместен под падините на Малешевските
+        Планини,
+        чии
+        општински граници се простираат на површина од 598 км2. Во негова близина се наоѓа и Беровското
+        Езеро.
+        Берово се
+        наоѓа 161 км од Скопје, 47 км од Струмица и 52 км од Кочани.
+    </p>
+
+</div>
+<div class="image d-flex flex-column align-items-center col-6">
+    <img src="../assets/berovo-school.png" alt="Berovo-school picture" height="150px" width="250px">
+    <span>Основно училиште "Дедо Иљо Малешевски"</span>
+</div>
 }
