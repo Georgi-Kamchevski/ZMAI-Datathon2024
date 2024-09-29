@@ -10,7 +10,7 @@
         />
       </div>
       <div class="ps-3 pe-3 card">
-        <ul class="row d-flex flex-row gap-2 dataList p-2" formArrayName="filterDataType">
+        <ul class="row d-flex flex-row gap-2 dataList p-2" formArrayName="filteredDataTypeId">
             @for (filterDataType of filteredSuggestions; track filterDataType.filteredDataTypeId){              
                 <button input class="col-12 form-control dataList-item d-flex justify-content-start" (click)="locationClicked(filterDataType)">
                   <!-- <input

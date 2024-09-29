@@ -5,12 +5,12 @@ import * as L from 'leaflet';
 import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
 import type { EChartsOption } from 'echarts';
 import { DataService } from '../data.service'; // Import your DataService
-import { LocationData } from '../modals/locationData';
 import { OsnovnoModalComponent } from "../osnovno-modal/osnovno-modal.component"; // Import your model
 import { modelOpshtini } from '../modals/modelOpshtini';
 import { PieChartComponent } from "../pie-chart/pie-chart.component";
 import { LineZapishaniZavrsheniComponent } from "../line-zapishani-zavrsheni/line-zapishani-zavrsheni.component";
 import { StackedBarZapishaniZavrsheniComponent } from "../stacked-bar-zapishani-zavrsheni/stacked-bar-zapishani-zavrsheni.component";
+import { OnsovnoInfo } from '../modals/osnovnoInfo';
 
 @Component({
   selector: 'app-map',
@@ -23,12 +23,12 @@ import { StackedBarZapishaniZavrsheniComponent } from "../stacked-bar-zapishani-
 export class MapComponent implements OnInit {
   private map: any;
   private markerLayer: L.LayerGroup = L.layerGroup(); // Layer group for markers
-  public filteredData: LocationData[] = [];
+  public filteredData: OnsovnoInfo[] = [];
   public filteredOpshtiniData:modelOpshtini[]=[]
   options!: EChartsOption;
   title:string='';
   centralno_uchiliste:string='';
-  selectedLocation: LocationData | null = null;
+  selectedLocation: OnsovnoInfo | null = null;
 
   constructor(private dataService: DataService) {
     const filteredDataSignal = this.dataService.getFilteredLocations();
@@ -41,7 +41,7 @@ export class MapComponent implements OnInit {
       // this.centralno_uchiliste=(this.filteredData[0])['osnovno_ucilishte']
       // After retrieving filtered data, update the map markers
       if (this.filteredData && this.filteredData.length > 0) {
-        const coordsCent = this.filteredData[0].coordinates_centralno
+        const coordsCent = this.filteredData[0].coordinates
         .split(",").map(Number);
         let latCent: number = coordsCent[0];
         let lonCent: number = coordsCent[1];
@@ -99,13 +99,13 @@ export class MapComponent implements OnInit {
       });
 
       this.filteredData.forEach((location) => {
-        const coords = location.coordinates_podracno
+        const coords = location.coordinates
           .split(",").map(Number);
         const lat: number = coords[0];
         const lon: number = coords[1];
 
         var marker;
-        if(location.distance < 4){
+        if(location.osnnovno_tip === 'ЦУ'){
           marker = L.marker([lat, lon], { icon: blueIconWithoutShadow });
         }
         else{
@@ -140,7 +140,7 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     this.initMap();
 
-    // Use an effect to listen to changes in the filteredLocationData signal
+    // Use an effect to listen to changes in the filteredOnsovnoInfo signal
       //Hard-coding the data
       const xAxisData = ['2018 година','2019 година','2020 година','2021 година','2022 година','2023 година'];
      

@@ -1,8 +1,8 @@
 import { Component, effect, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import Fuse from "fuse.js";
-import { FilterDataType } from '../modals/filterDataType';
 import { DataService } from '../data.service';
+import { OnsovnoInfo } from '../modals/osnovnoInfo';
 
 @Component({
   selector: 'app-filter',
@@ -12,8 +12,8 @@ import { DataService } from '../data.service';
   styleUrl: './filter.component.css'
 })
 export class FilterComponent implements OnInit {
-  dataList!: FilterDataType[];
-  filteredSuggestions!: FilterDataType[];
+  dataList!: OnsovnoInfo[];
+  filteredSuggestions!: OnsovnoInfo[];
   filterForm!: FormGroup;
 
   selectedKey: number = -1;
@@ -25,16 +25,7 @@ export class FilterComponent implements OnInit {
     const locations = this.dataservice.getLocations();
 
     effect(() =>{
-      this.dataList = locations().map((location, index) => 
-      {
-        return {
-          filteredDataTypeId: index,
-          opshtina: location.opshtina,
-          naseleno_mesto: location.naseleno_mesto,
-          osnovno_ucilishte: location.osnovno_ucilishte,
-        } as FilterDataType;
-      }
-      );
+      this.dataList = locations();
       this.filteredSuggestions = this.dataList;
       // console.log(this.dataList);
     });
@@ -48,15 +39,15 @@ export class FilterComponent implements OnInit {
   initializeForm() {
     this.filterForm = this.formBuilder.group({
       filter: [''],
-      filterDataType: new FormArray([]),
+      filteredDataTypeId: new FormArray([]),
     });
   }
 
-  locationClicked(filterDataType: FilterDataType){
-    console.log(filterDataType);
-    this.selectedKey = filterDataType?.filteredDataTypeId;
+  locationClicked(OnsovnoInfo: OnsovnoInfo){
+    console.log(OnsovnoInfo);
+    this.selectedKey = OnsovnoInfo?.filteredDataTypeId;
 
-    const data = this.dataList.find(filterDataType => filterDataType.filteredDataTypeId === this.selectedKey);
+    const data = this.dataList.find(OnsovnoInfo => OnsovnoInfo.filteredDataTypeId === this.selectedKey);
 
     // console.log(data?.opshtina);
     if(data){
@@ -67,37 +58,37 @@ export class FilterComponent implements OnInit {
   }
 
   async populateFilterList() {
-    const list: FilterDataType[] = [
-      {
-        filteredDataTypeId: 1,
-        opshtina: 'Берово',
-        naseleno_mesto: 'с. Смојмирово',
-        osnovno_ucilishte: 'Дедо Иљо Малешевски'
-      },
-      {
-        filteredDataTypeId: 2,
-        opshtina: 'Аеродром',
-        naseleno_mesto: 'с. Будинарци',
-        osnovno_ucilishte: 'Дедо Иљо Малешевски'
-      },
-      {
-        filteredDataTypeId: 3,
-        opshtina: 'Карпош',
-        naseleno_mesto: 'с. Будинарци',
-        osnovno_ucilishte: 'Дедо Иљо Малешевски'
-      },
-      {
-        filteredDataTypeId: 4,
-        opshtina: 'Битола',
-        naseleno_mesto: 'с. Будинарци',
-        osnovno_ucilishte: 'Дедо Иљо Малешевски'
-      },
-      {
-        filteredDataTypeId: 5,
-        opshtina: 'Охрид',
-        naseleno_mesto: 'с. Будинарци',
-        osnovno_ucilishte: 'Дедо Иљо Малешевски'
-      }
+    const list: OnsovnoInfo[] = [
+      // {
+      //   filteredDataTypeId: 1,
+      //   opshtina: 'Берово',
+      //   naseleno_mesto: 'с. Смојмирово',
+      //   osnovno_ucilishte: 'Дедо Иљо Малешевски'
+      // },
+      // {
+      //   filteredDataTypeId: 2,
+      //   opshtina: 'Аеродром',
+      //   naseleno_mesto: 'с. Будинарци',
+      //   osnovno_ucilishte: 'Дедо Иљо Малешевски'
+      // },
+      // {
+      //   filteredDataTypeId: 3,
+      //   opshtina: 'Карпош',
+      //   naseleno_mesto: 'с. Будинарци',
+      //   osnovno_ucilishte: 'Дедо Иљо Малешевски'
+      // },
+      // {
+      //   filteredDataTypeId: 4,
+      //   opshtina: 'Битола',
+      //   naseleno_mesto: 'с. Будинарци',
+      //   osnovno_ucilishte: 'Дедо Иљо Малешевски'
+      // },
+      // {
+      //   filteredDataTypeId: 5,
+      //   opshtina: 'Охрид',
+      //   naseleno_mesto: 'с. Будинарци',
+      //   osnovno_ucilishte: 'Дедо Иљо Малешевски'
+      // }
     ];
     this.dataList = list.sort(function (a, b) {
       return a.opshtina.localeCompare(b.opshtina);
@@ -106,7 +97,7 @@ export class FilterComponent implements OnInit {
   }
 
   handleSelection(event: any) {
-    const formArray: FormArray = this.filterForm.get('filterDataType') as FormArray;
+    const formArray: FormArray = this.filterForm.get('OnsovnoInfo') as FormArray;
 
     //clear checked elements
     formArray.controls.forEach((ctrl: any, i) => {
@@ -117,7 +108,7 @@ export class FilterComponent implements OnInit {
 
     this.selectedKey = +event.target.value;
 
-    const data = this.dataList.find(filterDataType => filterDataType.filteredDataTypeId === this.selectedKey);
+    const data = this.dataList.find(OnsovnoInfo => OnsovnoInfo.filteredDataTypeId === this.selectedKey);
 
     // console.log(data?.opshtina);
     if(data){
@@ -150,7 +141,6 @@ handleFilterChange() {
     ignoreLocation: true,
     keys: [
       { name: 'opshtina', weight: 2 },
-      { name: 'naseleno_mesto', weight: 2 },
       { name: 'osnovno_ucilishte', weight: 2 },
     ],
     findAllMatches: false,
@@ -160,7 +150,6 @@ handleFilterChange() {
   const normalizedDataList = this.dataList.map(item => ({
     original: item,  // Keep the original data for returning
     opshtina: !!item.opshtina ? this.normalizeCyrillic(item.opshtina) : '',
-    naseleno_mesto: !!item.naseleno_mesto ? this.normalizeCyrillic(item.naseleno_mesto) : '',
     osnovno_ucilishte: !!item.osnovno_ucilishte ? this.normalizeCyrillic(item.osnovno_ucilishte) : '',
   }));
   // console.log(this.dataList);
@@ -185,7 +174,6 @@ handleFilterChange() {
     this.filteredSuggestions = results.map(result => ({
       ...result.data,
       opshtina: !!result.data.opshtina ? this.normalizeCyrillic(result.data.opshtina) : '',
-    naseleno_mesto: !!result.data.naseleno_mesto ? this.normalizeCyrillic(result.data.naseleno_mesto) : '',
     osnovno_ucilishte: !!result.data.osnovno_ucilishte ? this.normalizeCyrillic(result.data.osnovno_ucilishte) : '',
     }));
   }
@@ -238,7 +226,7 @@ isCyrillic(input: string): boolean {
   }
 
   isItemSelected(filteredDataTypeId: number): boolean {
-    const formArray: FormArray = this.filterForm.get('filterDataType') as FormArray;
+    const formArray: FormArray = this.filterForm.get('OnsovnoInfo') as FormArray;
     return formArray.controls.some((control) => control.value === filteredDataTypeId);
   }
 

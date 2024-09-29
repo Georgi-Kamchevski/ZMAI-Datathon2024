@@ -1,4 +1,5 @@
 export interface OnsovnoInfo{
+    filteredDataTypeId: number,
     opshtina: string,
     osnovno_ucilishte: string,
     osnnovno_tip: string,
