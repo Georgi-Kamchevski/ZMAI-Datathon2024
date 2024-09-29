@@ -77,11 +77,18 @@ export class LineZapishaniZavrsheniComponent {
         },
         xAxis: {
           type: 'category',
+          name:'Година',
+          nameLocation:'middle',
+          nameGap:20,
           boundaryGap: false,
           data: xAxisData  // Years on the x-axis
         },
         yAxis: {
-          type: 'value'
+          type: 'value',
+          name: 'Број на запишани ученици',
+          nameLocation:'middle',
+          nameRotate:90,
+          nameGap:30
         },
         series: [
           {
@@ -89,7 +96,11 @@ export class LineZapishaniZavrsheniComponent {
             type: 'line',
             data: zapishaniData,  // Data for zapishani (solid line)
             lineStyle: {
-              type: 'solid'  // Solid line for zapishani
+              type: 'solid',
+              color: '#B06DB3'  // Dotted line for zavrsheni
+            },
+            itemStyle: {
+              color: '#B06DB3'  // Dotted line for zavrsheni
             }
           },
           {
@@ -97,7 +108,11 @@ export class LineZapishaniZavrsheniComponent {
             type: 'line',
             data: zavrsheniData,  // Data for zavrsheni (dotted line)
             lineStyle: {
-              type: 'dotted'  // Dotted line for zavrsheni
+              type: 'dotted',
+              color: '#F8C056'  // Dotted line for zavrsheni
+            },
+            itemStyle: {
+              color: '#F8C056'  // Dotted line for zavrsheni
             }
           }
         ]

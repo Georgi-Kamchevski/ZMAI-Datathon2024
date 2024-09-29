@@ -4,6 +4,37 @@
 @import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 @import "../node_modules/leaflet/dist/leaflet.css";
 body{
-    background-color:#8D99AE;
+    background-color:#e1daea;
     
+}
+:root {
+    --rozeva: #e1daea;
+    --svetla: #eeeaf3;
+    --violetova: #685369ff;
+    --plava: rgb(221, 243, 244);
+    --orange: #ffa400ff;
+    --crna: #000000;
+}
+
+.bubble-container {
+    background-color: var(--svetla);/* Apply the violetova color */
+    padding: 20px; /* Add some padding for inner spacing */
+    border-radius: 15px; /* Make the container "bubble-like" */
+    margin-bottom: 20px; /* Add some space between each bubble */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a soft shadow */
+    color: var(--crna); /* Ensure text contrast on the violet background */
+}
+
+.bubble-container h3 {
+    color: var(--crna);/* Ensure the heading has enough contrast */
+}
+
+.grade-selector label,
+.year-selector label {
+    color: var(--crna); /* Ensure labels are readable */
+}
+
+.grade-selector select,
+.year-selector select {
+    color: var(--crna); /* Darker color for better contrast in the dropdown */
 }
