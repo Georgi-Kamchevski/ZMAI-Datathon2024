@@ -1,4 +1,4 @@
-import { Component, effect, Input } from '@angular/core';
+import { Component, effect, Input, ChangeDetectorRef, SimpleChanges, OnChanges } from '@angular/core';
 import { modelOpshtini } from '../modals/modelOpshtini'; // Import your modelOpshtini interface
 import { DataService } from '../data.service'; // Import your DataService
 import { EChartsOption } from 'echarts';
@@ -11,52 +11,65 @@ import { NgxEchartsDirective } from 'ngx-echarts';
   styleUrls: ['./line-zapishani-zavrsheni.component.css'],
   imports: [NgxEchartsDirective]
 })
-export class LineZapishaniZavrsheniComponent {
+export class LineZapishaniZavrsheniComponent implements OnChanges {
 
   @Input() selectedOpshtina: string = '';  // The selected municipality (opshtina)
   public opshtinaData: modelOpshtini[] = [];
   public filteredOpshtinaData: modelOpshtini[] = [];  // Data for the selected opshtina
   public selectedGrade: string = 'prvo';  // Default selected grade (can be changed)
   public options!: EChartsOption;
-  public chartInitialized: boolean = false; // To track whether the chart options have been initialized
+  private chartInstance: any;  // Keep a reference to the chart instance
   
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private cdr: ChangeDetectorRef) {
     const filteredOpshtiniSignal = this.dataService.getFilteredOpshtiniData();
+    
     effect(() => {
       this.opshtinaData = filteredOpshtiniSignal();
-      console.log('Filtered opshtinaData:', this.opshtinaData);
-      
-      // Filter data based on the selected opshtina
-      this.filteredOpshtinaData = this.opshtinaData.filter(data => data.opshtina === this.selectedOpshtina);
-
-      if (this.filteredOpshtinaData.length > 0) {
-        // Update the chart only when filtered data is available
-        this.updateChart(this.selectedGrade);  
-      }
+      this.filterData();
     });
   }
 
-  // Update chart based on selected grade
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedOpshtina']) {
+      this.filterData();  // Filter data when selectedOpshtina changes
+    }
+  }
+
+  filterData() {
+    this.filteredOpshtinaData = this.opshtinaData.filter(data => data.opshtina === this.selectedOpshtina);
+    if (this.filteredOpshtinaData.length > 0) {
+      this.updateChart(this.selectedGrade);
+    } else {
+      console.warn('No data available for the selected opshtina.');
+    }
+  }
+
+  onChartInit(ec: any) {
+    this.chartInstance = ec;  // Save the chart instance
+  }
+
   onGradeChange(newGrade: string): void {
     this.selectedGrade = newGrade;
     this.updateChart(newGrade);  // Update the chart when a new grade is selected
   }
 
   updateChart(grade: string): void {
-    // Prepare to handle dynamic keys safely
+    if (!this.filteredOpshtinaData || this.filteredOpshtinaData.length === 0) {
+      console.warn('No data available for the selected opshtina.');
+      return;
+    }
+
     type GradeKeys = `${'prvo' | 'vtoro' | 'treto' | 'cetvrto' | 'petto' | 'shesto' | 'sedmo' | 'osmo' | 'devetto'}_${'zapishani' | 'zavrsheni'}`;
     
     const xAxisData = this.filteredOpshtinaData.map(data => data.godina);  // Extract the years
 
-    // Dynamically access zapishani and zavrsheni data using the `grade` key
     const zapishaniKey = `${grade}_zapishani` as GradeKeys;
     const zavrsheniKey = `${grade}_zavrsheni` as GradeKeys;
 
-    const zapishaniData = this.filteredOpshtinaData.map(data => data[zapishaniKey]);  // Get zapishani values for the selected grade
-    const zavrsheniData = this.filteredOpshtinaData.map(data => data[zavrsheniKey]);  // Get zavrsheni values for the selected grade
+    const zapishaniData = this.filteredOpshtinaData.map(data => data[zapishaniKey]);
+    const zavrsheniData = this.filteredOpshtinaData.map(data => data[zavrsheniKey]);
 
-    // Ensure there is valid data before initializing the chart
-    if (zapishaniData.length > 0 && zavrsheniData.length > 0) {
+    if (zapishaniData.some(d => d !== undefined) && zavrsheniData.some(d => d !== undefined)) {
       this.options = {
         tooltip: {
           trigger: 'axis'
@@ -77,47 +90,53 @@ export class LineZapishaniZavrsheniComponent {
         },
         xAxis: {
           type: 'category',
-          name:'Година',
-          nameLocation:'middle',
-          nameGap:20,
+          name: 'Година',
+          nameLocation: 'middle',
+          nameGap: 20,
           boundaryGap: false,
-          data: xAxisData  // Years on the x-axis
+          data: xAxisData
         },
         yAxis: {
           type: 'value',
           name: 'Број на запишани ученици',
-          nameLocation:'middle',
-          nameRotate:90,
-          nameGap:30
+          nameLocation: 'middle',
+          nameRotate: 90,
+          nameGap: 30
         },
         series: [
           {
             name: 'Zapishani (Enrolled)',
             type: 'line',
-            data: zapishaniData,  // Data for zapishani (solid line)
+            data: zapishaniData,
             lineStyle: {
               type: 'solid',
-              color: '#B06DB3'  // Dotted line for zavrsheni
+              color: '#B06DB3'
             },
             itemStyle: {
-              color: '#B06DB3'  // Dotted line for zavrsheni
+              color: '#B06DB3'
             }
           },
           {
             name: 'Zavrsheni (Completed)',
             type: 'line',
-            data: zavrsheniData,  // Data for zavrsheni (dotted line)
+            data: zavrsheniData,
             lineStyle: {
               type: 'dotted',
-              color: '#F8C056'  // Dotted line for zavrsheni
+              color: '#F8C056'
             },
             itemStyle: {
-              color: '#F8C056'  // Dotted line for zavrsheni
+              color: '#F8C056'
             }
           }
         ]
       };
-      this.chartInitialized = true;  // Mark the chart as initialized
+
+      if (this.chartInstance) {
+        this.chartInstance.clear();
+        this.chartInstance.setOption(this.options, true);
+      }
+
+      this.cdr.detectChanges();
     } else {
       console.warn('No data available for selected grade.');
     }

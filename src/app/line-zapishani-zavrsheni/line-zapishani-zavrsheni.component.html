@@ -17,6 +17,5 @@
     </div>
   
     <!-- Line Chart -->
-    <div echarts [options]="options" class="chart-container" style="height: 400px;"></div>
-  </div></div>
-  
+    <div echarts [options]="options" (chartInit)="onChartInit($event)" class="chart-container" style="height: 400px;"></div>
+</div></div>
