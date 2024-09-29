@@ -5,12 +5,13 @@ import * as L from 'leaflet';
 import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
 import type { EChartsOption } from 'echarts';
 import { DataService } from '../data.service'; // Import your DataService
-import { LocationData } from '../modals/locationData'; // Import your model
+import { LocationData } from '../modals/locationData';
+import { OsnovnoModalComponent } from "../osnovno-modal/osnovno-modal.component"; // Import your model
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [NgxEchartsDirective],
+  imports: [NgxEchartsDirective, OsnovnoModalComponent],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
   providers: [provideEcharts()]
@@ -95,16 +96,17 @@ export class MapComponent implements OnInit {
           marker = L.marker([lat, lon], { icon: redIconWithoutShadow });
         }
         marker.on('click', (e: any) => {
-          const popLocation = new L.LatLng(lat, lon);
-          const popup = L.popup({
-            autoClose: true,
-            closeOnClick: true,
-          })
-          .setLatLng(popLocation)
-          .setContent(`<p>${location.osnovno_ucilishte}</p>`)
-          .openOn(this.map);
+          // const popLocation = new L.LatLng(lat, lon);
+          // const popup = L.popup({
+          //   autoClose: true,
+          //   closeOnClick: true,
+          // })
+          // .setLatLng(popLocation)
+          // .setContent(`<p>${location.osnovno_ucilishte}</p>`)
+          // .openOn(this.map);
 
-          this.map.setView([lat, lon], 18);
+          // this.map.setView([lat, lon], 18);
+          this.dataService.selectedLocation.set(location);
 
           const offcanvasElement = document.getElementById('offcanvasRight');
           if (offcanvasElement) {

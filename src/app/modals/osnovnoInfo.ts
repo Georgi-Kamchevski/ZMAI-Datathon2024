@@ -1,0 +1,18 @@
+export interface OnsovnoInfo{
+    opshtina: string,
+    osnovno_ucilishte: string,
+    osnnovno_tip: string,
+    coordinates: string,
+    language: string,
+    jazik: string,
+    uce_2019_2020: number,
+    uce_2020_2021: number,
+    uce_2021_2022: number,
+    uce_2022_2023: number,
+    uce_2023_2024: number,
+    par_2019_2020: number,
+    par_2020_2021: number,
+    par_2021_2022: number,
+    par_2022_2023: number,
+    par_2023_2024: number,
+}

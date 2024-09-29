@@ -12,6 +12,11 @@ export class DataService {
   private locationDataUrl = 'assets/dataSets/osnovno_koordinati.csv'; 
   public filteredLocationData = signal<LocationData[]>([]);
   public locations = signal<LocationData[]>([]);
+  public selectedLocation = signal<LocationData | null>(null);
+
+  public getSelectedLocation(){
+    return this.selectedLocation;
+  }
 
   public getLocations(){
     return this.locations;
@@ -22,12 +27,12 @@ export class DataService {
   }
 
   setLocations(opshtinaFilter: string) {
-// Filter locationData based on opshtinaFilter
-const filteredData = this.locations().filter((location : LocationData) => location.opshtina === opshtinaFilter);
-
-// console.log('Parsed location data:', filteredData);
-
-filteredData!! ? this.filteredLocationData.set(filteredData) : this.filteredLocationData.set([]);
+    // Filter locationData based on opshtinaFilter
+    const filteredData = this.locations().filter((location : LocationData) => location.opshtina === opshtinaFilter);
+      
+    // console.log('Parsed location data:', filteredData);
+      
+    filteredData!! ? this.filteredLocationData.set(filteredData) : this.filteredLocationData.set([]);
   }
 
   constructor(private http: HttpClient) {}
