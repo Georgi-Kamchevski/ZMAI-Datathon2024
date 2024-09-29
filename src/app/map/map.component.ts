@@ -28,6 +28,7 @@ export class MapComponent implements OnInit {
   options!: EChartsOption;
   title:string='';
   centralno_uchiliste:string='';
+  selectedLocation: LocationData | null = null;
 
   constructor(private dataService: DataService) {
     const filteredDataSignal = this.dataService.getFilteredLocations();
@@ -36,8 +37,8 @@ export class MapComponent implements OnInit {
     effect(() => {
       this.filteredData = filteredDataSignal();
       console.log('Filtered data in map component:', this.filteredData);
-      this.title=(this.filteredData[0])['opshtina']
-      this.centralno_uchiliste=(this.filteredData[0])['osnovno_ucilishte']
+      // this.title=(this.filteredData[0])['opshtina']
+      // this.centralno_uchiliste=(this.filteredData[0])['osnovno_ucilishte']
       // After retrieving filtered data, update the map markers
       if (this.filteredData && this.filteredData.length > 0) {
         const coordsCent = this.filteredData[0].coordinates_centralno
@@ -122,6 +123,7 @@ export class MapComponent implements OnInit {
 
           // this.map.setView([lat, lon], 18);
           this.dataService.selectedLocation.set(location);
+          this.selectedLocation = location;
 
           const offcanvasElement = document.getElementById('offcanvasRight');
           if (offcanvasElement) {

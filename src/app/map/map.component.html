@@ -20,10 +20,12 @@
             <div class="col-12">
                 <app-osnovno-modal></app-osnovno-modal>
         </div>
-        <div class="charts mt-10">
-            <app-pie-chart [opshtina]="'Берово'"></app-pie-chart>
-            <app-line-zapishani-zavrsheni [selectedOpshtina]="'Берово'"></app-line-zapishani-zavrsheni>
-            <app-stacked-bar-zapishani-zavrsheni [selectedOpshtina]="'Берово'"></app-stacked-bar-zapishani-zavrsheni>
-
-        </div>
+        @if (!!selectedLocation && !!selectedLocation.opshtina){
+            <div class="charts mt-10">
+                <app-pie-chart [opshtina]="selectedLocation?.opshtina"></app-pie-chart>
+                <app-line-zapishani-zavrsheni [selectedOpshtina]="selectedLocation?.opshtina"></app-line-zapishani-zavrsheni>
+                <app-stacked-bar-zapishani-zavrsheni [selectedOpshtina]="selectedLocation?.opshtina"></app-stacked-bar-zapishani-zavrsheni>
+    
+            </div>
+        }
     </div>
