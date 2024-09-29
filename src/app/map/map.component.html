@@ -10,7 +10,7 @@
 <button class="btn btn-primary berovoBtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
   aria-controls="offcanvasRight">БЕРОВО</button> -->
 <div class="offcanvas offcanvas-end offcanvas-size-xl" tabindex="-1" id="offcanvasRight"
-    aria-labelledby="offcanvasRightLabel">
+    aria-labelledby="offcanvasRightLabel" style="background-color: #e1daea;">
     <div class="offcanvas-header">
         <h5 id="offcanvasRightLabel">{{title}}</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -28,10 +28,18 @@
 
             </div>
         </div>
-        <div class="charts mt-10">
-            <app-pie-chart [opshtina]="'Берово'"></app-pie-chart>
+        
+        <div class="charts mt-10 col-md-12">
+            <div class="col-md-12 d-flex gap-2">
+            <app-pie-chart [opshtina]="'Берово'" class="col-md-6"></app-pie-chart>
+            <app-zavrsheni-zapishani  [opshtina]="'Берово'" class="col-md-6"></app-zavrsheni-zapishani>
+<!--             
+            <app-pie-chart [opshtina]="'Берово'" class="col-md-6">
+                </app-pie-chart> -->
+        </div>
+            <div class="col-md-12">
             <app-line-zapishani-zavrsheni [selectedOpshtina]="'Берово'"></app-line-zapishani-zavrsheni>
             <app-stacked-bar-zapishani-zavrsheni [selectedOpshtina]="'Берово'"></app-stacked-bar-zapishani-zavrsheni>
-
+        </div>
         </div>
     </div>

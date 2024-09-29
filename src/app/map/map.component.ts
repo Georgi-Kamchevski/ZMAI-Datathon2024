@@ -10,11 +10,12 @@ import { modelOpshtini } from '../modals/modelOpshtini';
 import { PieChartComponent } from "../pie-chart/pie-chart.component";
 import { LineZapishaniZavrsheniComponent } from "../line-zapishani-zavrsheni/line-zapishani-zavrsheni.component";
 import { StackedBarZapishaniZavrsheniComponent } from "../stacked-bar-zapishani-zavrsheni/stacked-bar-zapishani-zavrsheni.component";
+import { PieZavrsheniZapishaniComponent } from "../pie-zavrsheni-zapishani/pie-zavrsheni-zapishani.component";
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [NgxEchartsDirective, PieChartComponent, LineZapishaniZavrsheniComponent, StackedBarZapishaniZavrsheniComponent],
+  imports: [NgxEchartsDirective, PieChartComponent, LineZapishaniZavrsheniComponent, StackedBarZapishaniZavrsheniComponent, PieZavrsheniZapishaniComponent],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
   providers: [provideEcharts()]

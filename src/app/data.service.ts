@@ -12,7 +12,7 @@ import { modelOpshtini } from './modals/modelOpshtini';
 export class DataService {
   private locationDataUrl = 'assets/dataSets/osnovno_koordinati.csv'; 
   //TODO: stavi ime na csv file
-  private opsthiniDataUrl = 'assets/dataSets/data_opstini.csv'
+  private opsthiniDataUrl = 'assets/dataSets/data_opstini_final.csv'
   public filteredLocationData = signal<LocationData[]>([]);
   public filteredOpshtiniData = signal<modelOpshtini[]>([]);
   public locations = signal<LocationData[]>([]);
@@ -109,7 +109,8 @@ filteredData!! ? this.filteredLocationData.set(filteredData) : this.filteredLoca
             osmo_zavrsheni:record ["Завршени деца во VIII одделение"],
             devetto_zavrsheni:record ["Завршени деца во IX одделение"],
             total_profesori:record ["Наставници"],
-            total_zapishani:record ["Вкупно запишани"],//
+            total_zapishani:record ["Вкупно запишани"],
+            total_zavrsheni:record ["Вкупно завршени"],
             profesori_zapishani_rate:record ["Сооднос деца по наставник"]//
           } as modelOpshtini
         });

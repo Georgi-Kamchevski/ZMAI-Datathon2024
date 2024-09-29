@@ -21,5 +21,6 @@ export interface modelOpshtini {
     devetto_zavrsheni:number,
     total_profesori:number,
     total_zapishani:number,//
+    total_zavrsheni: number,
     profesori_zapishani_rate:number//
 }

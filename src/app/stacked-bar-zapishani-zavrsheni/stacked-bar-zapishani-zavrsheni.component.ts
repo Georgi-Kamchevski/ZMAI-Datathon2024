@@ -93,6 +93,9 @@ export class StackedBarZapishaniZavrsheniComponent {
             emphasis: {
               focus: 'series'
             },
+            itemStyle: {
+              color:'#B06DB3'  // Custom color for "Zavrsheni (Completed)"
+            },
             data: zapishaniData
           },
           {
@@ -104,6 +107,9 @@ export class StackedBarZapishaniZavrsheniComponent {
             },
             emphasis: {
               focus: 'series'
+            },
+            itemStyle: {
+              color:'#F8C056'  // Custom color for "Zavrsheni (Completed)"
             },
             data: zavrsheniData
           }
