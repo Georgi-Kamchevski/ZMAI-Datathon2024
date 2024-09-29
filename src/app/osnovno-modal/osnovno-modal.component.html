@@ -1,27 +1,38 @@
 @if (selectedLocation){
 <div class="col-12 d-flex flex-column align-items-center">
     <div>
-        @if (selectedLocation.opshtina=='Куманово') {
-        <img src="../../assets/Kumanovo-grb.png" alt="grb" height="200" width="150">
-        }
-        @if (selectedLocation.opshtina=='Берово') {
-        <img src="../../assets/Berovo-grb.png" alt="grb" height="200" width="150">
-        }
-        @if (selectedLocation.opshtina=='Битола') {
-        <img src="../../assets/Bitola-grb.png" alt="grb" height="200" width="150">
+        @switch (selectedLocation.opshtina) {
+            @case ("Куманово") {
+            <img src="../../assets/Kumanovo-grb.png" alt="grb" height="200" width="150">
+            }
+            @case ("Берово"){
+            <img src="../../assets/Berovo-grb.png" alt="grb" height="200" width="150">
+            }
+            @case ("Битола") {
+            <img src="../../assets/Bitola-grb.png" alt="grb" height="200" width="150">
+            }
+            @default {
+                <img src="../../assets/Berovo-grb.png" alt="grb" height="200" width="150"> 
+            }
         }
     </div>
     <h1 class="text-center col-12" style="font-weight: bold;">{{selectedLocation.opshtina}}</h1>
-    <h5 class="text-center col-12">{{selectedLocation.osnovno_ucilishte}}</h5>
+    <h2 class="text-center col-12">{{selectedLocation.osnovno_ucilishte}}</h2>
     <div>
-        @if (selectedLocation.opshtina=='Куманово') {
-        <img src="../../assets/kumanovo-school.jpg" alt="osnovno"  height="400" width="850" style="margin-bottom: 2rem;">
-        }
-        @if (selectedLocation.opshtina=='Берово') {
-        <img src="../../assets/berovo-school.png" alt="osnovno"  height="400" width="850" style="margin-bottom: 2rem;">
-        }
-        @if (selectedLocation.opshtina=='Битола') {
-        <img src="../../assets/bitola-school.jpg" alt="osnovno" height="400" width="850" style="margin-bottom: 2rem;">
+        @switch (selectedLocation.opshtina){
+
+            @case ("Куманово") {
+                <img src="../../assets/kumanovo-school.jpg" alt="osnovno"  height="400" width="850" style="margin-bottom: 2rem;">
+            }
+            @case ("Берово") {
+                <img src="../../assets/berovo-school.png" alt="osnovno"  height="400" width="850" style="margin-bottom: 2rem;">
+            }
+            @case ("Битола") {
+                <img src="../../assets/bitola-school.jpg" alt="osnovno" height="400" width="850" style="margin-bottom: 2rem;">
+            }
+            @default{
+                <img src="../../assets/berovo-school.png" alt="osnovno"  height="400" width="850" style="margin-bottom: 2rem;">
+            }
         }
     </div>
 </div>

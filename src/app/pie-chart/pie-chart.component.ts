@@ -56,55 +56,57 @@
     }
 
     generateChartData(groupedData: { [year: number]: { total_profesori: number; total_zapishani: number } }) {
-      this.chartDataByYear = Object.keys(groupedData).map(yearString => {
-        const year = Number(yearString);
-        const yearData = groupedData[year];
-
-        return {
-          year: year,
-          chartData: {
-            tooltip: {
-              trigger: 'item'
-            },
-            legend: {
-              top: '5%',
-              left: 'center'
-            },
-            series: [
-              {
-                name: `Data for ${year}`,
-                type: 'pie',
-                radius: ['40%', '70%'],
-                avoidLabelOverlap: false,
-                itemStyle: {
-                  borderRadius: 10,
-                },
-                label: {
-                  show: false,
-                  position: 'center'
-                },
-                emphasis: {
+      if(!!this.chartDataByYear){
+        this.chartDataByYear = Object.keys(groupedData).map(yearString => {
+          const year = Number(yearString);
+          const yearData = groupedData[year];
+  
+          return {
+            year: year,
+            chartData: {
+              tooltip: {
+                trigger: 'item'
+              },
+              legend: {
+                top: '5%',
+                left: 'center'
+              },
+              series: [
+                {
+                  name: `Data for ${year}`,
+                  type: 'pie',
+                  radius: ['40%', '70%'],
+                  avoidLabelOverlap: false,
+                  itemStyle: {
+                    borderRadius: 10,
+                  },
                   label: {
-                    show: true,
-                    fontSize: 40,
-                    fontWeight: 'bold'
-                  }
-                },
-                labelLine: {
-                  show: false
-                },
-                data: [
-                  { value: yearData.total_profesori, name: 'Професори',   itemStyle: {
-                    color: '#B06DB3' // Custom color for "Професори"
-                  } },
-                  { value: yearData.total_zapishani, name: 'Запишани ученици',   itemStyle: {
-                    color: '#F8C056' // Custom color for "Професори"
-                  } }
-                ]
-              }
-            ]
-          }
-        };
-      });
+                    show: false,
+                    position: 'center'
+                  },
+                  emphasis: {
+                    label: {
+                      show: true,
+                      fontSize: 40,
+                      fontWeight: 'bold'
+                    }
+                  },
+                  labelLine: {
+                    show: false
+                  },
+                  data: [
+                    { value: yearData.total_profesori, name: 'Професори',   itemStyle: {
+                      color: '#B06DB3' // Custom color for "Професори"
+                    } },
+                    { value: yearData.total_zapishani, name: 'Запишани ученици',   itemStyle: {
+                      color: '#F8C056' // Custom color for "Професори"
+                    } }
+                  ]
+                }
+              ]
+            }
+          };
+        });
+      }
     }
   }
