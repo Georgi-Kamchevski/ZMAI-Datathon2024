@@ -1,0 +1,22 @@
+<div class="container">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li *ngFor="let chart of chartDataByYear; let i = index" class="nav-item">
+        <a class="nav-link" [class.active]="i === 0" id="tab-{{chart.year}}-tab" 
+           data-bs-toggle="tab" href="#tab-{{chart.year}}" role="tab" 
+           attr.aria-controls="tab-{{chart.year}}" aria-selected="{{ i === 0 ? 'true' : 'false' }}">
+          {{ chart.year }}
+        </a>
+      </li>
+    </ul>
+  
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div *ngFor="let chart of chartDataByYear; let i = index" 
+           class="tab-pane fade" [class.show]="i === 0" [class.active]="i === 0" 
+           id="tab-{{chart.year}}" role="tabpanel" aria-labelledby="tab-{{chart.year}}-tab">
+        <div echarts [options]="chart.chartData" class="chart-container" style="height: 400px;"></div>
+      </div>
+    </div>
+  </div>
+  

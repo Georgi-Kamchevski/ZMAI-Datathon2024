@@ -4,13 +4,17 @@ import { map } from 'rxjs/operators';
 import { parse } from 'csv-parse/browser/esm/sync';
 import { Observable } from 'rxjs';
 import { LocationData } from './modals/locationData';
+import { modelOpshtini } from './modals/modelOpshtini';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
   private locationDataUrl = 'assets/dataSets/osnovno_koordinati.csv'; 
+  //TODO: stavi ime na csv file
+  private opsthiniDataUrl = 'assets/dataSets/data_opstini.csv'
   public filteredLocationData = signal<LocationData[]>([]);
+  public filteredOpshtiniData = signal<modelOpshtini[]>([]);
   public locations = signal<LocationData[]>([]);
 
   public getLocations(){
@@ -19,6 +23,9 @@ export class DataService {
 
   public getFilteredLocations(){
     return this.filteredLocationData;
+  }
+  public getFilteredOpshtiniData(){
+    return this.filteredOpshtiniData;
   }
 
   setLocations(opshtinaFilter: string) {
@@ -63,6 +70,55 @@ filteredData!! ? this.filteredLocationData.set(filteredData) : this.filteredLoca
         // this.filteredLocationData.set(filteredData);
         this.locations.set(locationData);
         return locationData;
+      })
+    );
+  }
+
+
+  loadmodelOpshtiniCSV(opshtinaFilter:string): Observable<modelOpshtini[]> {
+    // console.log('started loading CSV file');
+    return this.http.get(this.opsthiniDataUrl, { responseType: 'text' }).pipe(
+      map((csvData: string) => {
+        // console.log('CSV file loaded successfully:', csvData);
+        const records = parse(csvData, {
+          columns: true, // Use header row as keys
+          skip_empty_lines: true,
+        });
+        // Map CSV rows to LocationData objects
+        const opshtiniData = records.map((record: any) => {
+          const opshtina = record['Општина'] // First substring until first space
+          return {
+            opshtina:record ["Општина"],
+            godina:record ["година"],
+            prvo_zapishani:record ["запишани деца во I одделение"],
+            vtoro_zapishani:record ["запишани деца во II одделение"],
+            treto_zapishani:record ["запишани деца во III одделение"],
+            cetvrto_zapishani:record ["запишани деца во IV одделение"],
+            petto_zapishani:record ["запишани деца во V одделение"],
+            shesto_zapishani:record ["запишани деца во VI одделение"],
+            sedmo_zapishani:record ["запишани деца во VII одделение"],
+            osmo_zapishani:record ["запишани деца во VIII одделение"],
+            devetto_zapishani:record ["запишани деца во IX одделение"],
+            prvo_zavrsheni:record ["Завршени деца во I одделение"],
+            vtoro_zavrsheni:record ["Завршени деца во II одделение"],
+            treto_zavrsheni:record ["Завршени деца во III одделение"],
+            cetvrto_zavrsheni:record ["Завршени деца во IV одделение"],
+            petto_zavrsheni:record ["Завршени деца во V одделение"],
+            shesto_zavrsheni:record ["Завршени деца во VI одделение"],
+            sedmo_zavrsheni:record ["Завршени деца во VII одделение"],
+            osmo_zavrsheni:record ["Завршени деца во VIII одделение"],
+            devetto_zavrsheni:record ["Завршени деца во IX одделение"],
+            total_profesori:record ["Наставници"],
+            total_zapishani:record ["Вкупно запишани"],//
+            profesori_zapishani_rate:record ["Сооднос деца по наставник"]//
+          } as modelOpshtini
+        });
+        //console.log(opshtiniData);
+        const filteredData = opshtiniData.filter((opshtinaModel : modelOpshtini) => opshtinaModel.opshtina === opshtinaFilter);
+        console.log(filteredData)
+        // this.filteredLocationData.set(filteredData);
+        this.filteredOpshtiniData.set(filteredData);
+        return filteredData;
       })
     );
   }

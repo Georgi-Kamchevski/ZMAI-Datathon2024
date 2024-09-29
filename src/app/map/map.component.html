@@ -12,31 +12,26 @@
 <div class="offcanvas offcanvas-end offcanvas-size-xl" tabindex="-1" id="offcanvasRight"
     aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
-        <h5 id="offcanvasRightLabel">БЕРОВО</h5>
+        <h5 id="offcanvasRightLabel">{{title}}</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body d-flex flex-column align-items-center">
+      
         <div class="row mb-3">
             <div class="col-6">
-                <p>Берово — град во источниот дел на Република Македонија, кој е сместен под падините на Малешевските
-                    Планини,
-                    чии
-                    општински граници се простираат на површина од 598 км2. Во негова близина се наоѓа и Беровското
-                    Езеро.
-                    Берово се
-                    наоѓа 161 км од Скопје, 47 км од Струмица и 52 км од Кочани.
-                </p>
+               
 
             </div>
             <div class="image d-flex flex-column align-items-center col-6">
                 <img src="../assets/berovo-school.png" alt="Berovo-school picture" height="150px" width="250px">
-                <span>Основно училиште "Дедо Иљо Малешевски"</span>
+                <span>Основно училиште {{centralno_uchiliste}}</span>
 
             </div>
         </div>
-        <div class="charts mt-2">
-            <div echarts [options]="options" class="demo-chart">
+        <div class="charts mt-10">
+            <app-pie-chart [opshtina]="'Берово'"></app-pie-chart>
+            <app-line-zapishani-zavrsheni [selectedOpshtina]="'Берово'"></app-line-zapishani-zavrsheni>
+            <app-stacked-bar-zapishani-zavrsheni [selectedOpshtina]="'Берово'"></app-stacked-bar-zapishani-zavrsheni>
 
-            </div>
         </div>
     </div>

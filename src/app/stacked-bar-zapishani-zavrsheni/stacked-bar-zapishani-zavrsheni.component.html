@@ -1,0 +1,14 @@
+<div class="container">
+    <h3>Select Year to View Trends for {{ selectedOpshtina }}</h3>
+    
+    <!-- Year Selector -->
+    <div class="year-selector">
+      <label for="year">Select Year:</label>
+      <select id="year" (change)="onYearChange($event.target.value)">
+        <option *ngFor="let year of availableYears" [value]="year" [selected]="year === selectedYear">{{ year }}</option>
+      </select>
+    </div>
+  
+    <!-- Stacked Bar Chart -->
+    <div echarts [options]="options" class="chart-container" style="height: 400px;"></div>
+</div>

@@ -6,11 +6,15 @@ import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
 import type { EChartsOption } from 'echarts';
 import { DataService } from '../data.service'; // Import your DataService
 import { LocationData } from '../modals/locationData'; // Import your model
+import { modelOpshtini } from '../modals/modelOpshtini';
+import { PieChartComponent } from "../pie-chart/pie-chart.component";
+import { LineZapishaniZavrsheniComponent } from "../line-zapishani-zavrsheni/line-zapishani-zavrsheni.component";
+import { StackedBarZapishaniZavrsheniComponent } from "../stacked-bar-zapishani-zavrsheni/stacked-bar-zapishani-zavrsheni.component";
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [NgxEchartsDirective],
+  imports: [NgxEchartsDirective, PieChartComponent, LineZapishaniZavrsheniComponent, StackedBarZapishaniZavrsheniComponent],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
   providers: [provideEcharts()]
@@ -18,18 +22,21 @@ import { LocationData } from '../modals/locationData'; // Import your model
 export class MapComponent implements OnInit {
   private map: any;
   public filteredData: LocationData[] = [];
+  public filteredOpshtiniData:modelOpshtini[]=[]
   options!: EChartsOption;
-  
+  title:string='';
+  centralno_uchiliste:string='';
 
   constructor(private dataService: DataService) {
     // Get the signal from DataService
     const filteredDataSignal = this.dataService.getFilteredLocations();
-   
+  
     // Create an effect to reactively update when the signal changes
     effect(() => {
       this.filteredData = filteredDataSignal();  // Retrieve the filtered data from the signal
       console.log('Filtered data in map component:', this.filteredData);
-      
+      this.title=(this.filteredData[0])['opshtina']
+      this.centralno_uchiliste=(this.filteredData[0])['osnovno_ucilishte']
       // After retrieving filtered data, update the map markers
       if (this.filteredData && this.filteredData.length > 0) {
         const coordsCent = this.filteredData[0].coordinates_centralno
@@ -42,6 +49,8 @@ export class MapComponent implements OnInit {
         this.addMarkers(); // Ensure you update the markers based on filtered data
       }
     });
+ 
+
   }  // Inject DataService
 
   

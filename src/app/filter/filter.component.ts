@@ -109,6 +109,7 @@ export class FilterComponent implements OnInit {
     if(data){
       // this.dataservice.loadCSV(data!.opshtina).subscribe();
       this.dataservice.setLocations(data!.opshtina);
+      this.dataservice.loadmodelOpshtiniCSV(data!.opshtina).subscribe()
     }
   }
 

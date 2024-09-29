@@ -1,0 +1,25 @@
+export interface modelOpshtini {
+    opshtina:string,
+    godina:number,
+    prvo_zapishani:number,
+    vtoro_zapishani:number,
+    treto_zapishani:number,
+    cetvrto_zapishani:number,
+    petto_zapishani:number,
+    shesto_zapishani:number,
+    sedmo_zapishani:number,
+    osmo_zapishani:number,
+    devetto_zapishani:number,
+    prvo_zavrsheni:number,
+    vtoro_zavrsheni:number,
+    treto_zavrsheni:number,
+    cetvrto_zavrsheni:number,
+    petto_zavrsheni:number,
+    shesto_zavrsheni:number,
+    sedmo_zavrsheni:number,
+    osmo_zavrsheni:number,
+    devetto_zavrsheni:number,
+    total_profesori:number,
+    total_zapishani:number,//
+    profesori_zapishani_rate:number//
+}

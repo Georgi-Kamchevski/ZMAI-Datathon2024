@@ -1,0 +1,22 @@
+<div class="container">
+    
+    <!-- Grade Selector -->
+    <div class="grade-selector container">
+      <label for="grade">Select Grade:</label>
+      <select id="grade" (change)="onGradeChange($event.target.value)">
+        <option value="prvo">Grade 1</option>
+        <option value="vtoro">Grade 2</option>
+        <option value="treto">Grade 3</option>
+        <option value="cetvrto">Grade 4</option>
+        <option value="petto">Grade 5</option>  
+        <option value="shesto">Grade 6</option>
+        <option value="sedmo">Grade 7</option>
+        <option value="osmo">Grade 8</option>
+        <option value="devetto">Grade 9</option>
+      </select>
+    </div>
+  
+    <!-- Line Chart -->
+    <div echarts [options]="options" class="chart-container" style="height: 400px;"></div>
+  </div>
+  
