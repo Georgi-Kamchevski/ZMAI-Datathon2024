@@ -1,17 +1,14 @@
 .dataList {
     max-width: fit-content;
-    overflow: hidden;
-    max-height: 25rem;
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 13.5rem);
     list-style: none;
     text-align: justify;
     /* padding: 3px; */
 }
 
-.dataList:hover{
-    overflow: auto;
-    overflow-x: hidden;
-    
-}
+
 
 .dataList li{
     height: 4rem;   
@@ -30,7 +27,7 @@
 .dataList li:hover{
 
   background-color: #ebe8e8;
-  /* border: rgba(0, 0, 0, 0.39) solid; */
+  border: rgba(0, 0, 0, 0.39) solid;
 }
 
 ::-webkit-scrollbar {

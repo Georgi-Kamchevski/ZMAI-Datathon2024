@@ -4,8 +4,10 @@
     height: 80vh;
   }
   .search-form{
-    background-color: #e6e6e675;
+    /* background-color: #e6e6e675; */
+    padding: 1rem;
     margin-top: 35px;
+    height: 100%;
       /* border: 1px solid blue; */
   }
  

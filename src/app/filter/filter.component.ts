@@ -52,6 +52,20 @@ export class FilterComponent implements OnInit {
     });
   }
 
+  locationClicked(filterDataType: FilterDataType){
+    console.log(filterDataType);
+    this.selectedKey = filterDataType?.filteredDataTypeId;
+
+    const data = this.dataList.find(filterDataType => filterDataType.filteredDataTypeId === this.selectedKey);
+
+    // console.log(data?.opshtina);
+    if(data){
+      // this.dataservice.loadCSV(data!.opshtina).subscribe();
+      this.dataservice.setLocations(data!.opshtina);
+      this.dataservice.loadmodelOpshtiniCSV(data!.opshtina).subscribe()
+    }
+  }
+
   async populateFilterList() {
     const list: FilterDataType[] = [
       {
